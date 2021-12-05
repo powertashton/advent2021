@@ -12,24 +12,50 @@ while i < len(array) :
 
 while [] in boards :
 		boards.remove([])
+		
 board = []
 i=0
 while i < len(boards) :
 	board.append([boards[i], boards[i+1], boards[i+2], boards[i+3], boards[i+4]])
 	i+=5
-number = 0
-for x in numbers :
-	for z in board :
-		if ['TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE'] not in z :
-			for y in z :
-				i=0
-				for k in y :
-					if k == x :
-						y[i] = 'TRUE'
-					i += 1
-			# figure out why its going to 16 and not stopping at 24...
-			print(numbers[number])
-		else :
-			break
+
+i=0
+for x in board :
+	p=0
+	while p < 5 :
+		x.append([x[i][p],x[i+1][p],x[i+2][p],x[i+3][p],x[i+4][p]])
+		p += 1
+
 	
-	number += 1
+
+bingo = 'FALSE'
+p = 0
+for x in numbers :
+	if bingo == 'FALSE' :
+		current = 0
+		for z in board :
+			if ['TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE'] not in z :
+				for y in z :
+					i=0
+					for k in y :
+						if k == x :
+							y[i] = 'TRUE'
+						i += 1
+			else :
+				bingo = z
+				final = int(numbers[p-1])
+				break
+			current += 1
+	p +=1
+
+g = 0
+winner = board[current]
+
+for x in winner :
+	for y in x:
+		if y != 'TRUE' :
+			g += int(y)
+
+	
+print(int(g/2) * final)
+	
