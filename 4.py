@@ -1,3 +1,4 @@
+#Part 1 - 57 lines (unoptimised)
 array = open('4.txt', "r").read().splitlines()
 numbers = array[0]
 numbers = numbers.split(',')
@@ -26,8 +27,6 @@ for x in board :
 		x.append([x[i][p],x[i+1][p],x[i+2][p],x[i+3][p],x[i+4][p]])
 		p += 1
 
-	
-
 bingo = 'FALSE'
 p = 0
 for x in numbers :
@@ -55,7 +54,6 @@ for x in winner :
 	for y in x:
 		if y != 'TRUE' :
 			g += int(y)
-
 	
 print(int(g/2) * final)
 	
