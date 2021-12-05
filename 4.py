@@ -27,6 +27,30 @@ for x in board :
 		x.append([x[i][p],x[i+1][p],x[i+2][p],x[i+3][p],x[i+4][p]])
 		p += 1
 
+while len(board) > 1:
+	bingo = 'FALSE'
+	p = 0
+	for x in numbers :
+		if bingo == 'FALSE' :
+			current = 0
+			for z in board :
+				if ['TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE'] not in z :
+					for y in z :
+						i=0
+						for k in y :
+							if k == x :
+								y[i] = 'TRUE'
+							i += 1
+				else :
+					bingo = z
+					final = int(numbers[p])
+					board.remove(z)
+					break
+				current += 1
+		p +=1
+
+print(board)
+
 bingo = 'FALSE'
 p = 0
 for x in numbers :
@@ -46,14 +70,18 @@ for x in numbers :
 				break
 			current += 1
 	p +=1
-
 g = 0
-winner = board[current]
-
-for x in winner :
+winner = board[0]
+print(board[0])
+print(final)
+for x in bingo :
 	for y in x:
 		if y != 'TRUE' :
-			g += int(y)
+			if y != final :
+				g += int(y)
 	
 print(int(g/2) * final)
+
+# 2584 is too low
+# 6232 is too high
 	
