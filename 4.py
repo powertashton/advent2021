@@ -1,4 +1,4 @@
-#Part 1 - 57 lines (unoptimised)
+#Part 2 - 54 lines (unoptimised)
 array = open('4.txt', "r").read().splitlines()
 numbers = array[0]
 numbers = numbers.split(',')
@@ -10,53 +10,26 @@ while i < len(array) :
 	while '' in boards[i-1] :
 		boards[i-1].remove('')
 	i += 1
-
 while [] in boards :
-		boards.remove([])
-		
+		boards.remove([])	
 board = []
 i=0
 while i < len(boards) :
 	board.append([boards[i], boards[i+1], boards[i+2], boards[i+3], boards[i+4]])
 	i+=5
-
 i=0
 for x in board :
 	p=0
 	while p < 5 :
 		x.append([x[i][p],x[i+1][p],x[i+2][p],x[i+3][p],x[i+4][p]])
 		p += 1
-
-while len(board) > 1:
-	bingo = 'FALSE'
-	p = 0
-	for x in numbers :
-		if bingo == 'FALSE' :
-			current = 0
-			for z in board :
-				if ['TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE'] not in z :
-					for y in z :
-						i=0
-						for k in y :
-							if k == x :
-								y[i] = 'TRUE'
-							i += 1
-				else :
-					bingo = z
-					final = int(numbers[p])
-					board.remove(z)
-					break
-				current += 1
-		p +=1
-
-print(board)
-
-bingo = 'FALSE'
-p = 0
-for x in numbers :
-	if bingo == 'FALSE' :
-		current = 0
-		for z in board :
+final = []
+score = []
+c = []
+while len(board) > 0 :
+	for z in board :
+		p = 0
+		for x in numbers :
 			if ['TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE'] not in z :
 				for y in z :
 					i=0
@@ -64,24 +37,19 @@ for x in numbers :
 						if k == x :
 							y[i] = 'TRUE'
 						i += 1
-			else :
-				bingo = z
-				final = int(numbers[p-1])
-				break
-			current += 1
-	p +=1
-g = 0
-winner = board[0]
-print(board[0])
-print(final)
-for x in bingo :
-	for y in x:
-		if y != 'TRUE' :
-			if y != final :
-				g += int(y)
-	
-print(int(g/2) * final)
-
-# 2584 is too low
-# 6232 is too high
-	
+				if ['TRUE', 'TRUE', 'TRUE', 'TRUE', 'TRUE'] in z :
+					g = 0
+					for x in z :
+						for y in x:
+							if y != 'TRUE' :
+								g += int(y)
+					score.append(int(g/2))
+					c.append(p)
+					board.remove(z)
+					break
+			p += 1
+largest = c[0]
+for x in c :
+	if x > largest :
+		largest = x
+print(score[c.index(largest)] * int(numbers[largest]))
